@@ -8,14 +8,13 @@
     </div>
   </header>
 
-  <a routerLink="/admin/users">
-    Gérer les utilisateurs
-  </a>
-
-  <a routerLink="/admin/activities">
-    Gérer le catalogue des activités
-  </a>
-  <a routerLink="/admin/guides/new">Créer un guide</a>
+  <div class="admin-actions">
+    <a routerLink="/admin/users">Gérer les utilisateurs</a>
+    <a routerLink="/admin/activities">Gérer les activités</a>
+    <a routerLink="/admin/guides/new" class="btn-create">
+        + Créer un guide
+    </a>
+  </div>
 
   @if (loading()) {
     <p>Chargement des guides...</p>

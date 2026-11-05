@@ -20,6 +20,10 @@ export class AdminUsers implements OnInit {
   saving = signal(false);
   errorMessage = signal('');
   successMessage = signal('');
+  roleLabels: Record<string, string> = {
+    ADMIN: 'Administrateur',
+    USER: 'Utilisateur'
+  };
 
   form: UserRequest = {
     email: '',

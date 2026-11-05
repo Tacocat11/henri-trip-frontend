@@ -19,6 +19,13 @@ export class AdminActivities implements OnInit {
   loading = signal(true);
   errorMessage = signal('');
   deletingId = signal<number | null>(null);
+  categoryLabels: Record<string, string> = {
+    MUSEUM: 'Musée',
+    CASTLE: 'Château',
+    ACTIVITY: 'Activité',
+    PARK: 'Parc',
+    CAVE: 'Grotte'
+  };
 
   ngOnInit(): void {
     this.loadActivities();

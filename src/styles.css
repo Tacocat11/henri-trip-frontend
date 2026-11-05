@@ -1,1 +1,265 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap');
+
+:root {
+  font-family: 'DM Sans', sans-serif;
+  color: #203a43;
+  background: #f5f8f7;
+  font-synthesis: none;
+
+  --primary: #176b72;
+  --primary-dark: #104e56;
+  --accent: #e6f5ef;
+  --text: #203a43;
+  --muted: #647b80;
+  --border: #dce7e5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f0f8f5 0%, #f8faf9 360px);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Outfit', sans-serif;
+  color: #183e45;
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  margin: 0 0 24px;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+p {
+  color: var(--muted);
+}
+
+a {
+  color: var(--primary);
+  transition: color .2s ease;
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+input[type="submit"],
+input[type="button"] {
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+
+button:hover:not(:disabled),
+input[type="submit"]:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+select,
+textarea {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(23, 107, 114, .12);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--primary);
+}
+
+label {
+  font-weight: 600;
+  color: #36545a;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 760px;
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(27, 69, 73, .06);
+}
+
+th, td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background: #eaf3f1;
+  color: #31575c;
+  font-weight: 700;
+}
+
+tr:hover td {
+  background: #f8fbfa;
+}
+
+ul {
+  padding-left: 22px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 24px 0;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #83c8c0;
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  th, td {
+    padding: 10px;
+    font-size: .9rem;
+  }
+}
+
+/* Liens d'action dans les tableaux */
+td a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 11px;
+  margin: 3px 4px 3px 0;
+  border-radius: 8px;
+  background: #e6f3f1;
+  color: #176b72;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+
+td a:hover {
+  background: #176b72;
+  color: white;
+}
+
+/* Espacement des boutons de suppression */
+td button {
+  margin: 3px 0;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* Liens de navigation au-dessus des tableaux */
+h1 ~ a,
+h2 ~ a {
+  display: inline-block;
+  margin: 0 8px 12px 0;
+  padding: 9px 14px;
+  border-radius: 9px;
+  background: #e6f3f1;
+  color: #176b72;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+h1 ~ a:hover,
+h2 ~ a:hover {
+  background: #176b72;
+  color: white;
+}
+
+/* Éviter les actions trop serrées */
+td:last-child {
+  min-width: 290px;
+}
+
+@media (max-width: 700px) {
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+router-outlet + * {
+  display: block;
+  width: min(1200px, calc(100% - 40px));
+  margin: 36px auto 70px;
+  padding: 32px;
+  background: #ffffff;
+  border: 1px solid #e7eeec;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(27, 69, 73, .055);
+}
+
+@media (max-width: 600px) {
+  router-outlet + * {
+    width: calc(100% - 24px);
+    margin: 20px auto;
+    padding: 20px 16px;
+  }
+}

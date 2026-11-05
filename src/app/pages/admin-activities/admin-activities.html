@@ -34,7 +34,7 @@
         @for (activity of activities(); track activity.id) {
           <tr>
             <td>{{ activity.title }}</td>
-            <td>{{ activity.category }}</td>
+            <td>{{ categoryLabels[activity.category] || activity.category }}</td>
             <td>{{ activity.address || '—' }}</td>
             <td class="actions">
               <a [routerLink]="['/admin/activities', activity.id, 'edit']">

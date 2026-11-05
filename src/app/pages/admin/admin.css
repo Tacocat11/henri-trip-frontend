@@ -57,3 +57,52 @@ tr:hover td {
 .delete-button:hover {
   background: #b91c1c;
 }
+
+.admin-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 28px 0 24px;
+}
+
+.admin-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 18px;
+  border: 1px solid #d5e8e4;
+  border-radius: 9px;
+  background: #e6f3f1;
+  color: #176b72;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.admin-actions a:hover {
+  background: #d0e9e4;
+  transform: translateY(-1px);
+}
+
+.admin-actions a.btn-create {
+  background: #176b72;
+  border-color: #176b72;
+  color: white;
+}
+
+.admin-actions a.btn-create:hover {
+  background: #104e56;
+}
+
+@media (max-width: 600px) {
+  .admin-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-actions a {
+    width: 100%;
+  }
+}
