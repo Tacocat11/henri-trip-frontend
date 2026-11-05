@@ -1,59 +1,76 @@
-# HenriTripFrontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.5.
+# Henri Trip — Frontend
 
-## Development server
+Application web de gestion et de consultation de guides touristiques développée avec Angular 22.
 
-To start a local development server, run:
+## Technologies
 
-```bash
-ng serve
-```
+- Angular 22
+- TypeScript
+- Angular Router
+- HttpClient
+- Authentification JWT
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Fonctionnalités
 
-## Code scaffolding
+### Administrateur
+- Gestion des guides touristiques
+- Gestion des activités
+- Programmation des activités par jour
+- Gestion des utilisateurs et des invitations
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Utilisateur
+- Connexion
+- Consultation des guides auxquels il est invité
+- Affichage du programme et des activités
 
-```bash
-ng generate component component-name
-```
+## Installation
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Prérequis
 
-```bash
-ng generate --help
-```
+- Node.js compatible avec Angular 22
+- npm
+- Backend Henri Trip démarré sur `http://localhost:8080`
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Commandes
 
 ```bash
-ng test
+npm install
+npm start
 ```
 
-## Running end-to-end tests
+Ouvrir `http://localhost:4200`.
 
-For end-to-end (e2e) testing, run:
+## Configuration API
+
+L'URL du backend est définie dans :
+
+`src/app/core/api.config.ts`
+
+Par défaut :
+
+```typescript
+export const API_URL = 'http://localhost:8080/api';
+```
+
+## Tests
 
 ```bash
-ng e2e
+npm test -- --watch=false
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Compilation
 
-## Additional Resources
+```bash
+npm run build
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Authentification
+
+L'application utilise un token JWT transmis automatiquement aux requêtes API protégées.
+
+Les interfaces accessibles dépendent du rôle ADMIN ou USER.
+
+## Backend
+
+L'API Spring Boot est disponible dans un dépôt séparé.
