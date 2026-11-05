@@ -1,0 +1,181 @@
+
+<div class="container">
+
+  <a routerLink="/admin">← Retour à l'administration</a>
+
+  @if (loading()) {
+    <p>Chargement...</p>
+  } @else if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+  } @else if (guide(); as currentGuide) {
+
+    <h1>Programme : {{ currentGuide.title }}</h1>
+
+    <section class="add-activity">
+    <h2>Ajouter une activité</h2>
+
+    <form #activityForm="ngForm" (ngSubmit)="addActivity()">
+
+        <label for="activity">Activité</label>
+        <select
+        id="activity"
+        name="activityId"
+        [(ngModel)]="form.activityId"
+        required
+        >
+        <option [ngValue]="0" disabled>
+            Sélectionner une activité
+        </option>
+
+        @for (activity of availableActivities(); track activity.id) {
+            <option [ngValue]="activity.id">
+            {{ activity.title }}
+            </option>
+        }
+        </select>
+
+        <label for="dayNumber">Jour</label>
+        <input
+        id="dayNumber"
+        name="dayNumber"
+        type="number"
+        [(ngModel)]="form.dayNumber"
+        min="1"
+        [max]="currentGuide.numberOfDays"
+        required
+        />
+
+        <label for="visitOrder">Ordre de visite</label>
+        <input
+        id="visitOrder"
+        name="visitOrder"
+        type="number"
+        [(ngModel)]="form.visitOrder"
+        min="1"
+        required
+        />
+
+        @if (formError()) {
+        <p class="error">{{ formError() }}</p>
+        }
+
+        <button
+        type="submit"
+        [disabled]="
+            activityForm.invalid ||
+            form.activityId === 0 ||
+            form.dayNumber > currentGuide.numberOfDays ||
+            saving()
+        "
+        >
+        {{ saving() ? 'Ajout en cours...' : 'Ajouter au programme' }}
+        </button>
+
+    </form>
+    </section>
+
+    @for (day of days(currentGuide.numberOfDays); track day) {
+      <section class="day">
+        <h2>Jour {{ day }}</h2>
+
+        @if (activitiesForDay(day).length === 0) {
+          <p>Aucune activité.</p>
+        } @else {
+            @if (formError()) {
+                <p class="error">{{ formError() }}</p>
+            }
+            @for (activity of activitiesForDay(day); track activity.id) {
+
+            <div class="activity">
+
+                @if (editingAssociationId() === activity.id) {
+
+                <form
+                    #editActivityForm="ngForm"
+                    class="edit-form"
+                    (ngSubmit)="saveActivity()"
+                >
+                    <label>Activité</label>
+                    <select
+                    name="editActivityId"
+                    [(ngModel)]="editForm.activityId"
+                    required
+                    >
+                    @for (option of availableActivities(); track option.id) {
+                        <option [ngValue]="option.id">
+                        {{ option.title }}
+                        </option>
+                    }
+                    </select>
+
+                    <label>Jour</label>
+                    <input
+                    type="number"
+                    name="editDayNumber"
+                    [(ngModel)]="editForm.dayNumber"
+                    min="1"
+                    [max]="currentGuide.numberOfDays"
+                    required
+                    />
+
+                    <label>Ordre de visite</label>
+                    <input
+                    type="number"
+                    name="editVisitOrder"
+                    [(ngModel)]="editForm.visitOrder"
+                    min="1"
+                    required
+                    />
+
+                    <div class="activity-actions">
+                    <button
+                        type="submit"
+                        [disabled]="
+                        editActivityForm.invalid ||
+                        editForm.dayNumber > currentGuide.numberOfDays ||
+                        saving()
+                        "
+                    >
+                        Enregistrer
+                    </button>
+
+                    <button type="button" (click)="cancelEditing()">
+                        Annuler
+                    </button>
+                    </div>
+                </form>
+
+                } @else {
+
+                <div class="activity-content">
+                    <span>
+                    <strong>{{ activity.visitOrder }}.</strong>
+                    {{ activity.title }}
+                    </span>
+
+                    <div class="activity-actions">
+                    <button type="button" (click)="startEditing(activity)">
+                        Modifier
+                    </button>
+
+                    <button
+                        type="button"
+                        class="delete-button"
+                        [disabled]="deletingAssociationId() !== null"
+                        (click)="deleteActivity(activity)"
+                    >
+                        Retirer
+                    </button>
+                    </div>
+                </div>
+
+                }
+
+            </div>
+            }
+        }
+      </section>
+    }
+  }
+
+</div>

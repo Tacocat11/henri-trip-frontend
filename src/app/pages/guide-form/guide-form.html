@@ -1,0 +1,116 @@
+
+<div class="form-container">
+
+  <h1>
+    {{ guideId === null ? 'Créer un guide' : 'Modifier le guide' }}
+  </h1>
+  <a routerLink="/admin">← Retour à l'administration</a>
+  @if (loading()) {
+    <p>Chargement...</p>
+  } @else {
+    <form #guideForm="ngForm" (ngSubmit)="onSubmit()">
+
+        <label for="title">Titre</label>
+        <input
+            id="title"
+            name="title"
+            type="text"
+            [(ngModel)]="form.title"
+            required
+        />
+
+        <label for="description">Description</label>
+        <textarea
+            id="description"
+            name="description"
+            [(ngModel)]="form.description"
+            rows="5"
+        ></textarea>
+
+        <label for="numberOfDays">Nombre de jours</label>
+        <input
+            id="numberOfDays"
+            name="numberOfDays"
+            type="number"
+            [(ngModel)]="form.numberOfDays"
+            min="1"
+            required
+        />
+
+        <fieldset>
+        <legend>Modes de déplacement</legend>
+
+        @for (option of mobilityOptions; track option.value) {
+            <label class="checkbox-label">
+            <input
+                type="checkbox"
+                [checked]="isSelected(form.mobilities, option.value)"
+                (change)="toggleSelection(
+                form.mobilities,
+                option.value,
+                $any($event.target).checked
+                )"
+            />
+            {{ option.label }}
+            </label>
+        }
+        </fieldset>
+
+        <fieldset>
+        <legend>Saisons</legend>
+
+        @for (option of seasonOptions; track option.value) {
+            <label class="checkbox-label">
+            <input
+                type="checkbox"
+                [checked]="isSelected(form.seasons, option.value)"
+                (change)="toggleSelection(
+                form.seasons,
+                option.value,
+                $any($event.target).checked
+                )"
+            />
+            {{ option.label }}
+            </label>
+        }
+        </fieldset>
+
+        <fieldset>
+        <legend>Publics</legend>
+
+        @for (option of audienceOptions; track option.value) {
+            <label class="checkbox-label">
+            <input
+                type="checkbox"
+                [checked]="isSelected(form.audiences, option.value)"
+                (change)="toggleSelection(
+                form.audiences,
+                option.value,
+                $any($event.target).checked
+                )"
+            />
+            {{ option.label }}
+            </label>
+        }
+        </fieldset>
+
+        @if (errorMessage()) {
+            <p class="error">{{ errorMessage() }}</p>
+        }
+
+        <div class="actions">
+            <button type="button" (click)="goBack()">
+            Annuler
+            </button>
+
+            <button
+            type="submit"
+            [disabled]="guideForm.invalid || saving()"
+            >
+            {{ saving() ? 'Enregistrement...' : 'Enregistrer' }}
+            </button>
+        </div>
+
+    </form>
+  }
+</div>

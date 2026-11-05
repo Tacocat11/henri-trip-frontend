@@ -1,0 +1,73 @@
+
+<div class="admin-container">
+
+  <header>
+    <div>
+      <h1>Administration Henri Trip</h1>
+      <p>Gestion des guides de voyage</p>
+    </div>
+  </header>
+
+  <a routerLink="/admin/users">
+    Gérer les utilisateurs
+  </a>
+
+  <a routerLink="/admin/activities">
+    Gérer le catalogue des activités
+  </a>
+  <a routerLink="/admin/guides/new">Créer un guide</a>
+
+  @if (loading()) {
+    <p>Chargement des guides...</p>
+  } @else if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+    <button (click)="loadGuides()">Réessayer</button>
+  } @else {
+
+    @if (guides().length === 0) {
+      <p>Aucun guide disponible.</p>
+    } @else {
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Durée</th>
+            <th>Activités</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (guide of guides(); track guide.id) {
+            <tr>
+                <td>{{ guide.id }}</td>
+                <td>{{ guide.title }}</td>
+                <td>{{ guide.numberOfDays }} jour(s)</td>
+                <td>{{ guide.activities.length }}</td>
+                <td>
+                    <a [routerLink]="['/admin/guides', guide.id, 'activities']">
+                        Programme
+                    </a>
+                    <a [routerLink]="['/admin/guides', guide.id, 'invitations']">
+                        Invitations
+                    </a>
+                    <a [routerLink]="['/admin/guides', guide.id, 'edit']">
+                        Modifier
+                    </a>
+                    <button
+                        type="button"
+                        class="delete-button"
+                        (click)="deleteGuide(guide)">
+                        Supprimer
+                    </button>
+                </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+
+  }
+
+</div>

@@ -1,0 +1,58 @@
+
+<div class="container">
+
+  <a routerLink="/admin">← Retour à l'administration</a>
+
+  <header>
+    <h1>Catalogue des activités</h1>
+
+    <a routerLink="/admin/activities/new" class="primary-button">
+      Nouvelle activité
+    </a>
+  </header>
+
+  @if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+  }
+
+  @if (loading()) {
+    <p>Chargement...</p>
+  } @else if (activities().length === 0) {
+    <p>Aucune activité enregistrée.</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>Titre</th>
+          <th>Catégorie</th>
+          <th>Adresse</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (activity of activities(); track activity.id) {
+          <tr>
+            <td>{{ activity.title }}</td>
+            <td>{{ activity.category }}</td>
+            <td>{{ activity.address || '—' }}</td>
+            <td class="actions">
+              <a [routerLink]="['/admin/activities', activity.id, 'edit']">
+                Modifier
+              </a>
+
+              <button
+                type="button"
+                [disabled]="deletingId() !== null"
+                (click)="deleteActivity(activity)"
+              >
+                Supprimer
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+</div>

@@ -1,0 +1,71 @@
+
+<div class="container">
+
+  <a routerLink="/admin">← Retour à l'administration</a>
+
+  <h1>Gestion des invitations</h1>
+  <p>Guide n°{{ guideId }}</p>
+
+  @if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+  }
+
+  @if (loading()) {
+    <p>Chargement...</p>
+  } @else {
+
+    <section class="panel">
+      <h2>Inviter un utilisateur</h2>
+
+      <form (ngSubmit)="invite()">
+        <select
+          name="userId"
+          [(ngModel)]="selectedUserId"
+        >
+          <option [ngValue]="0" disabled>
+            Sélectionner un utilisateur
+          </option>
+
+          @for (user of availableUsers(); track user.id) {
+            <option [ngValue]="user.id">
+              {{ user.email }}
+            </option>
+          }
+        </select>
+
+        <button
+          type="submit"
+          [disabled]="selectedUserId === 0 || saving()"
+        >
+          Inviter
+        </button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>Utilisateurs invités</h2>
+
+      @if (invitations().length === 0) {
+        <p>Aucun utilisateur invité.</p>
+      } @else {
+        <ul>
+          @for (invitation of invitations(); track invitation.id) {
+            <li>
+              <span>{{ invitation.userEmail }}</span>
+
+              <button
+                type="button"
+                [disabled]="saving()"
+                (click)="revoke(invitation)"
+              >
+                Retirer l'accès
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+
+  }
+
+</div>

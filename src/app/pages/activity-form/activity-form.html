@@ -1,0 +1,99 @@
+
+<div class="form-container">
+
+  <h1>
+    {{ activityId === null ? 'Nouvelle activité' : 'Modifier une activité' }}
+  </h1>
+  <a routerLink="/admin/activities">← Retour aux activités</a>
+  @if (loading()) {
+    <p>Chargement...</p>
+  } @else if (errorMessage() && activityId !== null && !form.title) {
+    <p class="error">{{ errorMessage() }}</p>
+  } @else {
+
+    <form #activityForm="ngForm" (ngSubmit)="onSubmit()">
+
+      <label for="title">Titre *</label>
+      <input
+        id="title"
+        name="title"
+        type="text"
+        [(ngModel)]="form.title"
+        required
+      />
+
+      <label for="category">Catégorie *</label>
+      <select
+        id="category"
+        name="category"
+        [(ngModel)]="form.category"
+        required
+      >
+        @for (category of categories; track category.value) {
+          <option [value]="category.value">
+            {{ category.label }}
+          </option>
+        }
+      </select>
+
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        name="description"
+        [(ngModel)]="form.description"
+        rows="4"
+      ></textarea>
+
+      <label for="address">Adresse</label>
+      <input
+        id="address"
+        name="address"
+        type="text"
+        [(ngModel)]="form.address"
+      />
+
+      <label for="phone">Téléphone</label>
+      <input
+        id="phone"
+        name="phone"
+        type="tel"
+        [(ngModel)]="form.phone"
+      />
+
+      <label for="openingHours">Horaires d'ouverture</label>
+      <input
+        id="openingHours"
+        name="openingHours"
+        type="text"
+        [(ngModel)]="form.openingHours"
+      />
+
+      <label for="website">Site web</label>
+      <input
+        id="website"
+        name="website"
+        type="url"
+        [(ngModel)]="form.website"
+      />
+
+      @if (errorMessage()) {
+        <p class="error">{{ errorMessage() }}</p>
+      }
+
+      <div class="actions">
+        <button type="button" (click)="cancel()">
+          Annuler
+        </button>
+
+        <button
+          type="submit"
+          [disabled]="activityForm.invalid || saving()"
+        >
+          {{ saving() ? 'Enregistrement...' : 'Enregistrer' }}
+        </button>
+      </div>
+
+    </form>
+  }
+
+</div>

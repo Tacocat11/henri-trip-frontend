@@ -1,0 +1,93 @@
+
+<div class="container">
+
+  <h1>Gestion des utilisateurs</h1>
+  <a routerLink="/admin">← Retour à l'administration</a>
+  <section>
+    <h2>Créer un utilisateur</h2>
+
+    <form #userForm="ngForm" (ngSubmit)="createUser()">
+
+      <label for="email">Email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        [(ngModel)]="form.email"
+        required
+        email
+      />
+
+      <label for="password">Mot de passe</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        [(ngModel)]="form.password"
+        minlength="8"
+        required
+      />
+
+      <label for="role">Rôle</label>
+      <select
+        id="role"
+        name="role"
+        [(ngModel)]="form.role"
+      >
+        <option value="USER">Utilisateur</option>
+        <option value="ADMIN">Administrateur</option>
+      </select>
+
+      <button
+        type="submit"
+        [disabled]="userForm.invalid || saving()"
+      >
+        {{ saving() ? 'Création...' : 'Créer' }}
+      </button>
+    </form>
+  </section>
+
+  @if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+  }
+
+  @if (successMessage()) {
+    <p class="success">{{ successMessage() }}</p>
+  }
+
+  <section>
+    <h2>Utilisateurs existants</h2>
+
+    @if (loading()) {
+      <p>Chargement...</p>
+    } @else {
+      <table>
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Rôle</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (user of users(); track user.id) {
+            <tr>
+              <td>{{ user.email }}</td>
+              <td>{{ user.role }}</td>
+              <td>
+                <button
+                  type="button"
+                  (click)="deleteUser(user)"
+                >
+                  Supprimer
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </section>
+
+</div>

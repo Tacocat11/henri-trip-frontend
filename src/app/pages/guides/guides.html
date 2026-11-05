@@ -1,0 +1,36 @@
+
+<div class="guides-container">
+
+  <header>
+    <h1>Mes guides de voyage</h1>
+    <p>Retrouvez les guides auxquels vous avez accès.</p>
+  </header>
+
+  @if (loading()) {
+    <p>Chargement des guides...</p>
+  } @else if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+    <button (click)="loadGuides()">Réessayer</button>
+  } @else if (guides().length === 0) {
+    <p>Vous n'avez encore accès à aucun guide.</p>
+  } @else {
+    <div class="guides-grid">
+      @for (guide of guides(); track guide.id) {
+        <article class="guide-card">
+          <h2>{{ guide.title }}</h2>
+          <p>{{ guide.description }}</p>
+
+          <div class="guide-info">
+            <span>{{ guide.numberOfDays }} jour(s)</span>
+            <span>{{ guide.activities.length }} activité(s)</span>
+          </div>
+
+          <a [routerLink]="['/guides', guide.id]">
+            Voir le programme
+          </a>
+        </article>
+      }
+    </div>
+  }
+
+</div>

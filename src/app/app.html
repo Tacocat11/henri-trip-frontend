@@ -1,0 +1,27 @@
+
+@if (!isLoginPage()) {
+  <nav class="navbar">
+    <a
+      class="brand"
+      [routerLink]="auth.getRole() === 'ADMIN' ? '/admin' : '/guides'"
+    >
+      Henri Trip
+    </a>
+
+    <div class="nav-links">
+      @if (auth.getRole() === 'ADMIN') {
+        <a routerLink="/admin">Guides</a>
+        <a routerLink="/admin/activities">Activités</a>
+        <a routerLink="/admin/users">Utilisateurs</a>
+      } @else {
+        <a routerLink="/guides">Mes guides</a>
+      }
+
+      <button type="button" (click)="logout()">
+        Déconnexion
+      </button>
+    </div>
+  </nav>
+}
+
+<router-outlet />

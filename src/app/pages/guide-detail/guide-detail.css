@@ -1,0 +1,89 @@
+
+.guide-container {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.back-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+header {
+  margin: 32px 0;
+}
+
+header h1 {
+  color: #1e293b;
+  margin-bottom: 12px;
+}
+
+header p {
+  color: #475569;
+  line-height: 1.6;
+}
+
+.guide-meta {
+  display: flex;
+  gap: 20px;
+  color: #64748b;
+  margin-top: 20px;
+}
+
+.program h2 {
+  margin-bottom: 24px;
+}
+
+.day-section {
+  margin-bottom: 32px;
+}
+
+.day-section h3 {
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e2e8f0;
+  color: #1e293b;
+}
+
+.activities {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activity-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.activity-card h4 {
+  margin: 0;
+}
+
+.activity-order {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  background: #dbeafe;
+  color: #1d4ed8;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.empty {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.error {
+  color: #dc2626;
+}

@@ -1,0 +1,53 @@
+
+<div class="guide-container">
+
+  <a routerLink="/guides" class="back-link">
+    ← Retour à mes guides
+  </a>
+
+  @if (loading()) {
+    <p>Chargement du guide...</p>
+  } @else if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+  } @else if (guide(); as currentGuide) {
+
+    <header>
+      <h1>{{ currentGuide.title }}</h1>
+      <p>{{ currentGuide.description }}</p>
+
+      <div class="guide-meta">
+        <span>{{ currentGuide.numberOfDays }} jour(s)</span>
+        <span>{{ currentGuide.activities.length }} activité(s)</span>
+      </div>
+    </header>
+
+    <section class="program">
+      <h2>Programme du séjour</h2>
+
+      @for (day of getDays(currentGuide.numberOfDays); track day) {
+        <div class="day-section">
+          <h3>Jour {{ day }}</h3>
+
+          @if (getActivitiesForDay(day).length === 0) {
+            <p class="empty">Aucune activité prévue pour ce jour.</p>
+          } @else {
+            <div class="activities">
+              @for (activity of getActivitiesForDay(day); track activity.id) {
+                <article class="activity-card">
+                  <span class="activity-order">
+                    {{ activity.visitOrder }}
+                  </span>
+
+                  <div>
+                    <h4>{{ activity.title }}</h4>
+                  </div>
+                </article>
+              }
+            </div>
+          }
+        </div>
+      }
+    </section>
+  }
+
+</div>

@@ -1,0 +1,101 @@
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 24px;
+}
+
+.day {
+  margin-top: 32px;
+}
+
+.activity {
+  padding: 14px;
+  margin: 8px 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+}
+
+.error {
+  color: #dc2626;
+}
+
+.add-activity {
+  margin: 32px 0;
+  padding: 24px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.add-activity form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 450px;
+}
+
+.add-activity input,
+.add-activity select {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.add-activity button {
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-activity button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.activity-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.activity-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.activity-actions button {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-button {
+  color: #dc2626;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 450px;
+}
+
+.edit-form input,
+.edit-form select {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+@media (max-width: 600px) {
+  .activity-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
